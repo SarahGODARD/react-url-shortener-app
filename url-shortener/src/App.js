@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-function MyComponent() {
+function getShortenUrl() {
+  const [urls, setUrls] = useState([])
   const [error, setError] = useState(null);
   const [items, setItems] = useState({});
+
+  setUrls ((newUrl) => 
+    [...urls, newUrl]
+  )
 
   useEffect(() => {
     fetch("https://api.shrtco.de/v2/shorten?url=https://fr.reactjs.org/docs/faq-ajax.html")
@@ -10,7 +15,9 @@ function MyComponent() {
       .then(
         (result) => {
           console.log(result);
+          setUrls(result.result.short_link);
           setItems(result);
+          console.log(urls);
         },
         (error) => {
           setError(error);
@@ -33,4 +40,4 @@ function MyComponent() {
 }
 
 
-export default MyComponent;
+export default getShortenUrl;
