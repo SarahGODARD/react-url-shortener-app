@@ -5,19 +5,13 @@ function getShortenUrl() {
   const [error, setError] = useState(null);
   const [items, setItems] = useState({});
 
-  setUrls ((newUrl) => 
-    [...urls, newUrl]
-  )
-
   useEffect(() => {
-    fetch("https://api.shrtco.de/v2/shorten?url=https://fr.reactjs.org/docs/faq-ajax.html")
+    fetch("https://api.shrtco.de/v2/shorten?url=https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array")
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result);
-          setUrls(result.result.short_link);
+          setUrls([urls, result]);
           setItems(result);
-          console.log(urls);
         },
         (error) => {
           setError(error);
@@ -28,14 +22,15 @@ function getShortenUrl() {
   if (error) {
     return <div>Erreur : {error.message}</div>;
   } else if (!items.result) {
-    return <div>Chargement...</div>;
+    // return <div>Chargement...</div>;
+    console.log("rip");
+    return "lol";
   } else {
     console.log("lol", items);
-    return (
-      <ul>
-        {items.result.short_link}
-      </ul>
-    );
+    setItems(["lol",urls, items]);
+    console.log("urls", urls);
+    return <ul> {items.result.short_link}</ul>
+    ;
   }
 }
 
