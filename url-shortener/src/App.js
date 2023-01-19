@@ -23,7 +23,7 @@ function MyComponent() {
   } else if (!items.result) {
     return <div>Chargement...</div>;
   } else {
-    console.log("lol", items);
+    console.log(items);
     return (
       <ul>
         {items.result.short_link}
